@@ -28,11 +28,22 @@ data:
     [INPUT]
         Name             tail
         Path             {{ .Values.input.tail.path }}
+{{- if ne .Values.input.tail.multiLine "on" }}
         Parser           {{ .Values.input.tail.parser }}
+{{- end }}
         Tag              {{ .Values.filter.kubeTag }}.*
         Refresh_Interval 5
         Mem_Buf_Limit    {{ .Values.input.tail.memBufLimit }}
         Skip_Long_Lines  On
+{{- if eq .Values.input.tail.multiLine "on" }}
+        Multiline        On
+{{- if .Values.input.tail.multiLineFlush }}
+        Multiline_Flush  {{ .Values.input.tail.multiLineFlush}}
+{{- end }}
+{{- if .Values.input.tail.parserFirstLine }}
+        Parser_Firstline {{ .Values.input.tail.parserFirstLine}}
+{{- end }}
+{{- end }}
 {{- if .Values.trackOffsets }}
         DB               /tail-db/tail-containers-state.db
         DB.Sync          Normal
@@ -159,6 +170,9 @@ data:
         Name        {{ .name }}
         Format      regex
         Regex       {{ .regex }}
+{{- if .timeKeep }}
+        Time_Keep   {{ .timeKeep }}
+{{- end }}
 {{- if .timeKey }}
         Time_Key    {{ .timeKey }}
 {{- end }}
