@@ -104,7 +104,10 @@ The following table lists the configurable parameters of the Fluent-Bit chart an
 | `image.pullSecrets`                | Specify image pull secrets                 | `nil`                                             |
 | `input.tail.memBufLimit`           | Specify Mem_Buf_Limit in tail input        | `5MB`                                             |
 | `input.tail.parser`                | Specify Parser in tail input.        | `docker`                                             |
-| `input.tail.path`                  | Specify log file(s) through the use of common wildcards.        | `/var/log/containers/*.log`                                             |
+| `input.tail.path`                  | Specify log file(s) through the use of common wildcards.        | `/var/log/containers/*.log`   
+| `input.tail.multiLine`             | Please see https://docs.fluentbit.io/manual/input/tail#multiline       | `off`  |
+  `input.tail.multiLineFlush`        | Please see https://docs.fluentbit.io/manual/input/tail#multiline   | `4`  |
+  `input.tail.parserFirstLine`       | Please see https://docs.fluentbit.io/manual/input/tail#multiline   | `NULL`  |
 | `input.systemd.enabled`            | [Enable systemd input](https://docs.fluentbit.io/manual/input/systemd)                   | `false`                                       |
 | `input.systemd.filters.systemdUnit` | Please see https://docs.fluentbit.io/manual/input/systemd | `[docker.service, kubelet.service`, `node-problem-detector.service]`                                       |
 | `input.systemd.maxEntries`         | Please see https://docs.fluentbit.io/manual/input/systemd | `1000`                             |
